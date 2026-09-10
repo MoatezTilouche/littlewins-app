@@ -1,125 +1,651 @@
-# LittleWins
+# 🌱 LittleWins
 
-### Small steps. Real progress. A kinder way to grow.
+<div align="center">
 
-LittleWins is a calm, personal habit and wellbeing companion. It helps you turn intentions into manageable daily objectives, notice the progress you are already making, and reflect with an AI coach that adapts to your real life.
+## Small steps. Real progress. A kinder way to grow.
 
-The interface is intentionally gentle and practical: a focused Today view, simple progress controls, encouraging feedback, and enough history to see patterns without turning self-care into a performance dashboard.
+**LittleWins is an AI-powered wellbeing and habit companion that learns from your daily progress, understands your obstacles, and helps you build realistic routines over time.**
 
-## What you can do
+<br/>
 
-- Create objectives for health, nutrition, movement, learning, relationships, and self-care.
-- Track one-tap habits, counters, quantities, and durations.
-- See daily completion, streaks, weekly progress, and your most consistent objectives.
-- Add a personal reason behind an objective so the motivation stays visible.
-- Ask the LittleWins Coach for reflections, next steps, and goal adjustments.
-- Approve suggested goal changes or new objectives before they affect your plan.
-- Keep chat history and learned coaching patterns separate, so you can clear a conversation without losing useful memories.
-- Export your local data as a JSON backup or clear it permanently from Settings.
-- Switch between light and dark appearance.
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge\&logo=nextdotjs)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge\&logo=react\&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge\&logo=typescript\&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge\&logo=tailwindcss\&logoColor=white)
+![Gemini](https://img.shields.io/badge/AI-Gemini-8E75B2?style=for-the-badge\&logo=google)
+![IndexedDB](https://img.shields.io/badge/Storage-IndexedDB-FFCA28?style=for-the-badge)
 
-## Product tour
+</div>
 
-| Area | Purpose |
-| --- | --- |
-| **Today** | Complete objectives and see how the day is going. |
-| **AI Coach** | Talk through obstacles, progress, and realistic next steps. |
-| **Objectives** | Create, edit, filter, and remove daily objectives. |
-| **Progress** | Review streaks, averages, wins, and the weekly chart. |
-| **Motivation** | Browse short, supportive reminders. |
-| **Profile** | Personalize your name, nickname, age, and avatar. |
-| **Settings** | Change appearance, export data, or clear local data. |
+---
 
-## Built with
+## ✨ What is LittleWins?
 
-- [Next.js](https://nextjs.org/) 16 with the App Router
-- React 19 and TypeScript
-- Tailwind CSS 4
-- Dexie for browser-based IndexedDB storage
-- Framer Motion for lightweight transitions
-- Recharts for progress visualization
-- Lucide React for interface icons
-- Gemini through the server-side AI route
+LittleWins helps users transform broad intentions like:
 
-## Run locally
+> “I want to become healthier.”
 
-### 1. Install dependencies
+into small, achievable actions such as:
+
+* 💧 Drink 8 glasses of water
+* 📖 Read for 15 minutes
+* 🏃 Move for 20 minutes
+* ❤️ Show appreciation to someone
+* 🌿 Take time for yourself
+* 🍽️ Eat your important meals
+
+But LittleWins goes further than a traditional habit tracker.
+
+It includes an **AI Coach** that can learn from progress, ask why goals were missed, detect recurring obstacles, suggest easier or harder challenges, and generate personalized motivation based on the user's real behavior.
+
+---
+
+# 🤖 Meet the LittleWins AI Coach
+
+The AI Coach is designed to behave like a supportive personal growth companion rather than a generic chatbot.
+
+### 🧠 Understand the user
+
+When the user starts using LittleWins, the Coach can ask questions to understand:
+
+* what they want to improve
+* their current habits
+* their preferred difficulty
+* what usually prevents them from reaching their goals
+* what motivates them
+* what kind of routine fits their lifestyle
+
+The Coach can then recommend suitable starting objectives.
+
+---
+
+### 🎯 Adaptive goals
+
+LittleWins analyzes performance over time.
+
+If a goal becomes too easy:
+
+```text
+📖 Reading
+
+Goal: 10 minutes
+
+Last 7 days:
+✅ ✅ ✅ ✅ ✅ ✅ ✅
+
+LittleWins:
+"You've completed this every day.
+Would you like to try 15 minutes next week?"
+```
+
+If a goal is too difficult:
+
+```text
+🏃 Exercise
+
+Goal: 30 minutes
+
+Completion this week: 28%
+
+LittleWins:
+"This goal seems difficult right now.
+Would you like to try a 10-minute version first?"
+```
+
+The AI never silently modifies objectives.
+
+Every change is presented to the user for approval first.
+
+---
+
+### 💬 Understand why goals fail
+
+When an objective is missed, LittleWins can ask:
+
+> “What got in the way today?”
+
+Possible answers:
+
+* 😴 Too tired
+* ⏰ No time
+* 🧠 Forgot
+* 😕 No motivation
+* 🤒 Didn't feel well
+* ✍️ Something else
+
+These answers can be stored as important AI memories.
+
+Over time, LittleWins can detect patterns.
+
+Example:
+
+```text
+Pattern detected:
+
+Exercise missed 4 times.
+
+3 failures were related to:
+"Too tired after work"
+
+AI recommendation:
+
+"Evening workouts may not fit your routine.
+Would you like to try a shorter morning session instead?"
+```
+
+---
+
+# 🧠 Local RAG Memory
+
+LittleWins uses a lightweight **local RAG-style memory system**.
+
+Instead of sending the user's entire history to the AI every time, the app retrieves only the most relevant memories.
+
+Example:
+
+```text
+User message
+     ↓
+Local progress
+     ↓
+Relevant memory retrieval
+     ↓
+Past failures / preferences / successes
+     ↓
+Selected context
+     ↓
+Gemini
+     ↓
+Personalized response
+```
+
+Useful memories can include:
+
+```text
+"User often skips exercise because they are tired after work."
+
+"Reading goals are completed consistently."
+
+"Short goals work better during weekdays."
+
+"User prefers encouraging rather than strict coaching."
+```
+
+This helps the AI provide more relevant suggestions while keeping the system lightweight.
+
+---
+
+# ✨ Personalized Motivation
+
+LittleWins can generate motivation based on the user's actual progress.
+
+Instead of generic quotes like:
+
+> “Never give up!”
+
+LittleWins can generate something more personal:
+
+> “You have shown that consistency comes naturally to you with reading. Bring the same small-step approach to movement this week.”
+
+Personalized motivation can be generated:
+
+* 🌅 daily
+* 📅 weekly
+* 🗓️ monthly
+* 🎯 after reaching a milestone
+* 💭 after understanding why a goal was missed
+
+---
+
+# 🏠 Product Experience
+
+| Area              | What it does                                           |
+| ----------------- | ------------------------------------------------------ |
+| 🏠 **Today**      | Complete daily objectives and see overall progress     |
+| 🤖 **AI Coach**   | Talk about obstacles, goals, routines, and next steps  |
+| 🎯 **Objectives** | Create, edit, organize, and remove habits              |
+| 📊 **Progress**   | View streaks, averages, completion history, and trends |
+| ✨ **Motivation**  | Read encouraging and personalized messages             |
+| 👤 **Profile**    | Personalize name, nickname, age, and avatar            |
+| ⚙️ **Settings**   | Appearance, export, reset, and privacy controls        |
+
+---
+
+# 🎯 Objective Types
+
+LittleWins supports several kinds of goals.
+
+### ✅ Boolean
+
+```text
+Express appreciation ❤️
+
+[ Mark as done ]
+```
+
+### 🔢 Counter
+
+```text
+Drink water 💧
+
+5 / 8 glasses
+
+[-]     [+]
+```
+
+### ⏱️ Duration
+
+```text
+Read 📖
+
+15 / 30 min
+
++5 min
+```
+
+### 📏 Quantity
+
+```text
+Drink water
+
+1.4 / 2 L
+```
+
+---
+
+# 🎨 UI Philosophy
+
+LittleWins is intentionally designed to feel:
+
+* 🌿 calm
+* 💜 encouraging
+* ✨ playful
+* 🧘 low-pressure
+* 🎯 focused
+* 📱 mobile-friendly
+
+The interface avoids aggressive productivity language.
+
+Instead of:
+
+```text
+❌ You failed your goal.
+```
+
+LittleWins prefers:
+
+```text
+🌱 Today didn't go as planned.
+
+What made this objective difficult?
+```
+
+The goal is to help users understand themselves rather than punish them.
+
+---
+
+# 🎞️ Animations & Microinteractions
+
+LittleWins uses **Framer Motion** to make the interface feel responsive and alive.
+
+Examples include:
+
+* animated progress rings
+* animated progress bars
+* smooth page transitions
+* completion animations
+* onboarding transitions
+* AI message appearance
+* goal suggestion cards
+* success feedback
+* subtle hover and tap interactions
+
+You can add a preview GIF here:
+
+```md
+![LittleWins Demo](public/demo.gif)
+```
+
+Recommended README assets:
+
+```text
+public/
+├── screenshots/
+│   ├── today.png
+│   ├── ai-coach.png
+│   ├── progress.png
+│   └── objectives.png
+│
+└── demo.gif
+```
+
+Then display them like:
+
+```md
+![LittleWins Today](public/screenshots/today.png)
+```
+
+---
+
+# 🛠️ Tech Stack
+
+### Frontend
+
+* ⚡ Next.js 16
+* ⚛️ React 19
+* 🔷 TypeScript
+* 🎨 Tailwind CSS 4
+* 🎞️ Framer Motion
+* 📊 Recharts
+* 🧩 Lucide React
+
+### Local persistence
+
+* 🗃️ Dexie
+* 🌐 IndexedDB
+
+### Artificial Intelligence
+
+* 🤖 Google Gemini
+* 🧠 Local RAG-style memory retrieval
+* 💬 Conversational coaching
+* 🎯 Adaptive objective suggestions
+* 📊 Behavioral pattern analysis
+
+---
+
+# 🔐 Privacy-first architecture
+
+LittleWins does **not require a server-side application database**.
+
+User data remains inside the browser using IndexedDB.
+
+Stored locally:
+
+```text
+Objectives
+Daily progress
+History
+Profile
+Settings
+Chat history
+AI memories
+Failure reasons
+Patterns
+```
+
+When the AI Coach is called:
+
+```text
+Browser
+   ↓
+Relevant local context
+   ↓
+/api/ai/chat
+   ↓
+Gemini API
+   ↓
+AI response
+```
+
+Only relevant selected context is sent to the AI.
+
+The Gemini API key remains server-side.
+
+---
+
+# 📁 Project Structure
+
+```text
+LittleWins/
+│
+├── app/
+│   ├── api/
+│   │   └── ai/
+│   │       └── chat/
+│   │           └── route.ts
+│   │
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/
+│   ├── ai/
+│   │   └── CoachPage.tsx
+│   │
+│   └── littlewins/
+│       ├── Today.tsx
+│       ├── Objectives.tsx
+│       ├── ProgressView.tsx
+│       ├── Motivation.tsx
+│       ├── Profile.tsx
+│       ├── SettingsView.tsx
+│       ├── ObjectiveCard.tsx
+│       ├── ObjectiveForm.tsx
+│       ├── ProgressRing.tsx
+│       └── Onboarding.tsx
+│
+├── ai-agent/
+│   ├── client.ts
+│   ├── rag.ts
+│   ├── prompts.ts
+│   └── types.ts
+│
+├── lib/
+│   └── db.ts
+│
+├── public/
+│
+├── package.json
+└── README.md
+```
+
+---
+
+# 🤖 AI Architecture
+
+The AI system is separated into several responsibilities.
+
+```text
+                    LittleWins AI
+                         │
+        ┌────────────────┼────────────────┐
+        │                │                │
+        ▼                ▼                ▼
+
+   Goal Planner    Progress Analyzer    Coach
+
+        │                │                │
+        ▼                ▼                ▼
+
+ Adaptive Goals    Pattern Detection   Conversation
+
+        │                │
+        ▼                ▼
+
+ Failure Analysis   Motivation Generator
+```
+
+These are logical responsibilities and can all use the same Gemini model.
+
+---
+
+# 🧠 AI Memory Types
+
+LittleWins can store important memories such as:
+
+```ts
+type AIMemory = {
+  kind:
+    | "failure"
+    | "success"
+    | "preference"
+    | "pattern"
+    | "reflection"
+
+  objectiveId?: number
+
+  objectiveTitle?: string
+
+  text: string
+
+  tags: string[]
+
+  importance: number
+
+  createdAt: string
+}
+```
+
+Example memory:
+
+```json
+{
+  "kind": "failure",
+  "objectiveTitle": "Exercise",
+  "text": "User often feels too tired after work to exercise.",
+  "tags": [
+    "exercise",
+    "evening",
+    "fatigue"
+  ],
+  "importance": 8
+}
+```
+
+The retrieval layer can use these memories to provide better future recommendations.
+
+---
+
+# 🚀 Run locally
+
+### 1. Clone the project
+
+```bash
+git clone YOUR_REPOSITORY_URL
+cd littlewins
+```
+
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-The repository also includes a `pnpm-lock.yaml` if you prefer pnpm.
+### 3. Configure Gemini
 
-### 2. Configure the AI Coach
+Create:
 
-Copy the example environment file:
-
-```bash
-cp .env.example .env.local
+```text
+.env.local
 ```
 
-Then add a Gemini API key to `.env.local`:
+Then add:
 
 ```env
-GEMINI_API_KEY=your_key_here
+GEMINI_API_KEY=your_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
 ```
 
-Create a key in [Google AI Studio](https://aistudio.google.com/apikey). Keep the key server-side; do not rename it to a `NEXT_PUBLIC_*` variable.
+Never expose the Gemini key using:
 
-### 3. Start the development server
+```env
+NEXT_PUBLIC_GEMINI_API_KEY
+```
+
+The API key must remain server-side.
+
+### 4. Start LittleWins
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-For a production build:
-
-```bash
-npm run build
-npm run start
-```
-
-## Privacy and data model
-
-LittleWins has no application database on the server. Objectives, daily progress, summaries, profile settings, chat messages, and AI memories are stored locally in the browser using Dexie and IndexedDB.
-
-When the Coach needs context, the app retrieves relevant local memories and recent progress before sending a selected context to the stateless `/api/ai/chat` route. The Gemini API key is used only by the server route and is never exposed to the browser.
-
-Local data is tied to the browser profile. Clearing browser storage or using another browser does not carry the data over, so use the Settings export before moving or resetting a profile.
-
-## AI architecture
-
-The agent code lives in [`ai-agent/`](ai-agent/):
-
-- [`client.ts`](ai-agent/client.ts) builds the request context from local app data.
-- [`rag.ts`](ai-agent/rag.ts) performs lightweight local retrieval over saved memories.
-- [`prompts.ts`](ai-agent/prompts.ts) defines the coach behavior and response contract.
-- [`types.ts`](ai-agent/types.ts) defines messages, memories, and suggested actions.
-- [`app/api/ai/chat/route.ts`](app/api/ai/chat/route.ts) proxies requests to Gemini without exposing the API key.
-
-The coach can save durable memories about obstacles, preferences, successful strategies, and reflections. Suggested goal changes are always presented for approval first.
-
-## Project structure
+Open:
 
 ```text
-app/
-	api/ai/chat/       Secure AI proxy route
-	page.tsx           App shell and data orchestration
-components/
-	ai/                LittleWins Coach interface
-	dashboard/         Today, progress, profile, settings, and shared UI
-ai-agent/             Retrieval, prompts, client, and agent types
-lib/db.ts             Dexie schema, seed data, and progress helpers
-public/               Static assets
+http://localhost:3000
 ```
 
-## Notes for contributors
+---
 
-- Keep user data operations in the Dexie layer and treat the browser as the source of truth.
-- Never place API keys in client components or `NEXT_PUBLIC_*` variables.
-- Preserve the app's low-pressure language: supportive, specific, and non-judgmental.
-- Run `npm run build` before shipping changes that affect routes, types, or the AI integration.
+# ☁️ Deploy on Vercel
+
+LittleWins works well with Vercel because the Next.js AI route can run as a serverless endpoint.
+
+After importing the repository into Vercel, create these environment variables:
+
+```text
+GEMINI_API_KEY
+GEMINI_MODEL
+```
+
+Example:
+
+```text
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+Then redeploy the project.
+
+---
+
+# 💾 Backups
+
+Because user data is local to the browser, users can export their LittleWins data.
+
+The JSON backup can contain:
+
+```text
+Objectives
+Progress
+History
+Profile
+Settings
+AI memories
+AI conversation history
+```
+
+This makes it possible to preserve progress before clearing browser storage or switching devices.
+
+---
+
+# 🗺️ Future Ideas
+
+Some possible next steps:
+
+* 🔔 Smart reminders
+* 📅 Weekly AI planning
+* 🧠 Better semantic RAG with embeddings
+* 📈 AI-generated progress reports
+* 🌤️ Mood tracking
+* 💤 Sleep tracking
+* 🏆 Challenges and achievements
+* 👥 Shared challenges with friends
+* 📱 Progressive Web App support
+* 🎙️ Voice conversations with LittleWins
+* 🔄 Optional cloud synchronization
+* 🎨 Custom themes
+* 🧩 AI-generated objectives
+* 🧠 Long-term behavioral insights
+
+---
+
+# 💜 Philosophy
+
+LittleWins is built around one simple idea:
+
+> **Improvement should feel encouraging, not exhausting.**
+
+You don't need to transform your whole life today.
+
+Drink one glass.
+
+Read one page.
+
+Move for five minutes.
+
+Tell someone you love them.
+
+Then do another little thing tomorrow.
+
+## 🌱 Small steps. Real progress. LittleWins.
