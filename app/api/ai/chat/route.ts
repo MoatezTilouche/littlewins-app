@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   try {
     const apiKey = process.env.GEMINI_API_KEY
     const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash'
-    if (!apiKey) return NextResponse.json({ error: 'Missing GEMINI_API_KEY. Add it to .env.local.' }, { status: 503 })
+    if (!apiKey) return NextResponse.json({ error: 'Missing GEMINI_API_KEY. Add it to your deployment environment variables, then redeploy.' }, { status: 503 })
 
     const body = (await request.json()) as { message?: string; context?: CoachContext }
     if (!body.message?.trim() || !body.context) return NextResponse.json({ error: 'Message and context are required.' }, { status: 400 })
