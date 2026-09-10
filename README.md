@@ -1,66 +1,125 @@
-# littlewins
+# LittleWins
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
+### Small steps. Real progress. A kinder way to grow.
 
-## Built with v0
+LittleWins is a calm, personal habit and wellbeing companion. It helps you turn intentions into manageable daily objectives, notice the progress you are already making, and reflect with an AI coach that adapts to your real life.
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+The interface is intentionally gentle and practical: a focused Today view, simple progress controls, encouraging feedback, and enough history to see patterns without turning self-care into a performance dashboard.
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_GTY8lopsc3zh2O7xEIdSTz1y9dQR)
+## What you can do
 
-## Getting Started
+- Create objectives for health, nutrition, movement, learning, relationships, and self-care.
+- Track one-tap habits, counters, quantities, and durations.
+- See daily completion, streaks, weekly progress, and your most consistent objectives.
+- Add a personal reason behind an objective so the motivation stays visible.
+- Ask the LittleWins Coach for reflections, next steps, and goal adjustments.
+- Approve suggested goal changes or new objectives before they affect your plan.
+- Keep chat history and learned coaching patterns separate, so you can clear a conversation without losing useful memories.
+- Export your local data as a JSON backup or clear it permanently from Settings.
+- Switch between light and dark appearance.
 
-First, run the development server:
+## Product tour
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+| Area | Purpose |
+| --- | --- |
+| **Today** | Complete objectives and see how the day is going. |
+| **AI Coach** | Talk through obstacles, progress, and realistic next steps. |
+| **Objectives** | Create, edit, filter, and remove daily objectives. |
+| **Progress** | Review streaks, averages, wins, and the weekly chart. |
+| **Motivation** | Browse short, supportive reminders. |
+| **Profile** | Personalize your name, nickname, age, and avatar. |
+| **Settings** | Change appearance, export data, or clear local data. |
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Built with
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [Next.js](https://nextjs.org/) 16 with the App Router
+- React 19 and TypeScript
+- Tailwind CSS 4
+- Dexie for browser-based IndexedDB storage
+- Framer Motion for lightweight transitions
+- Recharts for progress visualization
+- Lucide React for interface icons
+- Gemini through the server-side AI route
 
-## Learn More
+## Run locally
 
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-## AI Coach integration
-
-LittleWins now includes an adaptive AI Coach while preserving the existing frontend design.
-
-### Setup
-
-1. Copy `.env.example` to `.env.local`.
-2. Create a Gemini API key in Google AI Studio.
-3. Set `GEMINI_API_KEY` in `.env.local`.
-4. Install dependencies and run the app:
+### 1. Install dependencies
 
 ```bash
 npm install
+```
+
+The repository also includes a `pnpm-lock.yaml` if you prefer pnpm.
+
+### 2. Configure the AI Coach
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+Then add a Gemini API key to `.env.local`:
+
+```env
+GEMINI_API_KEY=your_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```
+
+Create a key in [Google AI Studio](https://aistudio.google.com/apikey). Keep the key server-side; do not rename it to a `NEXT_PUBLIC_*` variable.
+
+### 3. Start the development server
+
+```bash
 npm run dev
 ```
 
-### Privacy and storage
+Open [http://localhost:3000](http://localhost:3000).
 
-There is no application database on the server. Objectives, progress, chat history and AI memories are stored in the user's browser through the existing Dexie/IndexedDB layer. For an AI request, LittleWins retrieves only the most relevant memories and recent progress, then sends that selected context through the stateless `/api/ai/chat` route.
+For a production build:
 
-### AI features added
+```bash
+npm run build
+npm run start
+```
 
-- AI Coach chat page matching the current LittleWins visual style.
-- First-conversation discovery flow so the coach can learn what the user wants to achieve.
-- Failure check-ins for incomplete objectives.
-- Local RAG memory for obstacles, preferences, patterns, successes and reflections.
-- Adaptive easier/harder goal suggestions that require user approval.
-- Personalized progress reflections and motivational quotes.
-- Agent-memory visibility and separate "clear chat / keep memories" behavior.
-- AI memory included in export/import and full-data reset.
+## Privacy and data model
 
-See `ai-agent/README.md` for the agent architecture.
+LittleWins has no application database on the server. Objectives, daily progress, summaries, profile settings, chat messages, and AI memories are stored locally in the browser using Dexie and IndexedDB.
+
+When the Coach needs context, the app retrieves relevant local memories and recent progress before sending a selected context to the stateless `/api/ai/chat` route. The Gemini API key is used only by the server route and is never exposed to the browser.
+
+Local data is tied to the browser profile. Clearing browser storage or using another browser does not carry the data over, so use the Settings export before moving or resetting a profile.
+
+## AI architecture
+
+The agent code lives in [`ai-agent/`](ai-agent/):
+
+- [`client.ts`](ai-agent/client.ts) builds the request context from local app data.
+- [`rag.ts`](ai-agent/rag.ts) performs lightweight local retrieval over saved memories.
+- [`prompts.ts`](ai-agent/prompts.ts) defines the coach behavior and response contract.
+- [`types.ts`](ai-agent/types.ts) defines messages, memories, and suggested actions.
+- [`app/api/ai/chat/route.ts`](app/api/ai/chat/route.ts) proxies requests to Gemini without exposing the API key.
+
+The coach can save durable memories about obstacles, preferences, successful strategies, and reflections. Suggested goal changes are always presented for approval first.
+
+## Project structure
+
+```text
+app/
+	api/ai/chat/       Secure AI proxy route
+	page.tsx           App shell and data orchestration
+components/
+	ai/                LittleWins Coach interface
+	dashboard/         Today, progress, profile, settings, and shared UI
+ai-agent/             Retrieval, prompts, client, and agent types
+lib/db.ts             Dexie schema, seed data, and progress helpers
+public/               Static assets
+```
+
+## Notes for contributors
+
+- Keep user data operations in the Dexie layer and treat the browser as the source of truth.
+- Never place API keys in client components or `NEXT_PUBLIC_*` variables.
+- Preserve the app's low-pressure language: supportive, specific, and non-judgmental.
+- Run `npm run build` before shipping changes that affect routes, types, or the AI integration.
